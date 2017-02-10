@@ -18,7 +18,7 @@ export default class Board {
     let line = document.createElementNS(SVG_NS,'line');
     line.setAttributeNS(null,'stroke-dasharray','20 15');
     line.setAttributeNS(null,'stroke', 'white');
-    line.setAttributeNS(null,'stroke-width', '15');
+    line.setAttributeNS(null,'stroke-width', '3');
     line.setAttributeNS(null,'x1', this.width/2);
     line.setAttributeNS(null,'y1', this.height-this.height);
     line.setAttributeNS(null,'x2', this.width/2);
