@@ -568,7 +568,7 @@
 	      var line = document.createElementNS(_settings.SVG_NS, 'line');
 	      line.setAttributeNS(null, 'stroke-dasharray', '20 15');
 	      line.setAttributeNS(null, 'stroke', 'white');
-	      line.setAttributeNS(null, 'stroke-width', '15');
+	      line.setAttributeNS(null, 'stroke-width', '3');
 	      line.setAttributeNS(null, 'x1', this.width / 2);
 	      line.setAttributeNS(null, 'y1', this.height - this.height);
 	      line.setAttributeNS(null, 'x2', this.width / 2);
@@ -665,7 +665,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -675,30 +675,38 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Ball = function () {
-	  function Ball(radius, boardWidth, boardHeight) {
-	    _classCallCheck(this, Ball);
+	    function Ball(radius, boardWidth, boardHeight) {
+	        _classCallCheck(this, Ball);
 
-	    this.radius = radius;
-	    this.boardWidth = boardWidth;
-	    this.boardHeight = boardHeight;
-	    this.direction = 1;
-	  }
+	        this.radius = radius;
+	        this.boardWidth = boardWidth;
+	        this.boardHeight = boardHeight;
+	        this.direction = 1;
 
-	  _createClass(Ball, [{
-	    key: 'render',
-	    value: function render(svg) {
-	      //<circle cx="256" cy="128" r="8" fill="white"></circle>
-	      var ball = document.createElementNS(_settings.SVG_NS, 'circle');
-	      ball.setAttributeNS(null, 'cx', this.boardWidth / 2);
-	      ball.setAttributeNS(null, 'cy', this.boardHeight / 2);
-	      ball.setAttributeNS(null, 'r', this.radius);
-	      ball.setAttributeNS(null, 'fill', 'white');
-
-	      svg.appendChil(ball);
+	        this.reset();
 	    }
-	  }]);
 
-	  return Ball;
+	    _createClass(Ball, [{
+	        key: 'render',
+	        value: function render(svg) {
+	            //<circle cx="256" cy="128" r="8" fill="white"></circle>
+	            var ball = document.createElementNS(_settings.SVG_NS, 'circle');
+	            ball.setAttributeNS(null, 'cx', this.x);
+	            ball.setAttributeNS(null, 'cy', this.y);
+	            ball.setAttributeNS(null, 'r', this.radius);
+	            ball.setAttributeNS(null, 'fill', 'white');
+
+	            svg.appendChild(ball);
+	        }
+	    }, {
+	        key: 'reset',
+	        value: function reset() {
+	            this.x = this.boardWidth / 2;
+	            this.y = this.boardHeight / 2;
+	        }
+	    }]);
+
+	    return Ball;
 	}();
 
 	exports.default = Ball;
