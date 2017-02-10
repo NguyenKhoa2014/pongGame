@@ -21,8 +21,22 @@ export default class Ball {
         ball.setAttributeNS(null, 'fill', 'white');
 
         svg.appendChild(ball);
+        this.wallCollison();
     }
 
+    wallCollison(){
+        const hitLeft = this.x - this.radius <= 0;
+        const hitRight = this.x + this.radius >= this.boardWidth;
+        const hitTop = this.y - this.radius <= 0;
+        const hitBottom = this.y + this.radius >= this.boardHeight;
+        
+        if ( hitLeft || hitRight){
+            this.vx = -(this.vx);
+        }
+        else if (hitTop || hitBottom) {
+            this.vy = -(this.vy);
+        }
+    }
     reset() {
         this.x = this.boardWidth / 2;
         this.y = this.boardHeight / 2;

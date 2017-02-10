@@ -689,7 +689,9 @@
 	    _createClass(Ball, [{
 	        key: 'render',
 	        value: function render(svg) {
-	            //<circle cx="256" cy="128" r="8" fill="white"></circle>
+
+	            this.x += this.vx;
+	            this.y += this.vy;
 	            var ball = document.createElementNS(_settings.SVG_NS, 'circle');
 	            ball.setAttributeNS(null, 'cx', this.x);
 	            ball.setAttributeNS(null, 'cy', this.y);
@@ -703,6 +705,13 @@
 	        value: function reset() {
 	            this.x = this.boardWidth / 2;
 	            this.y = this.boardHeight / 2;
+	            this.vy = 0;
+	            while (this.vy === 0) {
+	                this.vy = Math.floor(Math.random() * 10 - 5);
+	            }
+
+	            //to make the ball looks like it moves almost the same x and y
+	            this.vx = this.direction * (6 - Math.abs(this.vy));
 	        }
 	    }]);
 
