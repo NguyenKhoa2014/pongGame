@@ -727,7 +727,7 @@
 
 	            svg.appendChild(ball);
 	            this.wallCollison();
-	            this.paddleCollision();
+	            this.paddleCollision(player1, player2);
 	        }
 	    }, {
 	        key: 'wallCollison',
@@ -759,8 +759,17 @@
 	                    this.vx = -this.vx;
 	                }
 	            } else {
+	                var _paddle2 = player1.coordinates(player1.x, player1.y, player1.width, player1.height);
 
-	                console.log();
+	                var _paddle3 = _slicedToArray(_paddle2, 4),
+	                    _leftX = _paddle3[0],
+	                    _rightX = _paddle3[1],
+	                    _topY = _paddle3[2],
+	                    _bottomY = _paddle3[3];
+
+	                if (this.x - this.radius >= _leftX && this.x - this.radius <= _rightX && this.y >= _topY && this.y <= _bottomY) {
+	                    this.vx = -this.vx;
+	                }
 	            }
 	        }
 	    }, {
