@@ -460,6 +460,10 @@
 
 	var _Ball2 = _interopRequireDefault(_Ball);
 
+	var _Score = __webpack_require__(14);
+
+	var _Score2 = _interopRequireDefault(_Score);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -489,6 +493,9 @@
 	        this.player2 = new _Paddle2.default(this.height, this.paddleWidth, this.paddleHeight, this.width - this.boardGap - this.paddleWidth, (this.height - this.paddleHeight) / 2, _settings.KEYS.up, _settings.KEYS.down);
 
 	        this.ball = new _Ball2.default(this.radius = 8, this.boardWidth = width, this.boardHeight = height);
+
+	        this.score1 = new _Score2.default(this.width / 2 - 50, 30, 30);
+	        this.score2 = new _Score2.default(this.width / 2 + 25, 30, 30);
 
 	        document.addEventListener('keydown', function (event) {
 	            switch (event.keyCode) {
@@ -521,6 +528,8 @@
 	            this.player2.render(svg);
 
 	            this.ball.render(svg, this.player1, this.player2);
+	            this.score1.render(svg, this.player1.score);
+	            this.score2.render(svg, this.player2.score);
 	        }
 	    }]);
 
@@ -709,7 +718,7 @@
 	        this.boardWidth = boardWidth;
 	        this.boardHeight = boardHeight;
 	        this.direction = 1;
-
+	        this.ping = new Audio('public/sounds/pong-01.wav');
 	        this.reset();
 	    }
 
@@ -728,6 +737,16 @@
 	            svg.appendChild(ball);
 	            this.wallCollison();
 	            this.paddleCollision(player1, player2);
+
+	            var rightGoal = this.x + this.radius >= this.boardWidth;
+	            var leftGoal = this.x - this.radius <= 0;
+	            if (rightGoal) {
+	                this.goal(player1);
+	                this.direction = 1;
+	            } else if (leftGoal) {
+	                this.goal(player2);
+	                this.direction = -1;
+	            }
 	        }
 	    }, {
 	        key: 'wallCollison',
@@ -757,6 +776,7 @@
 
 	                if (this.x + this.radius >= leftX && this.x + this.radius <= rightX && this.y >= topY && this.y <= bottomY) {
 	                    this.vx = -this.vx;
+	                    this.ping.play();
 	                }
 	            } else {
 	                var _paddle2 = player1.coordinates(player1.x, player1.y, player1.width, player1.height);
@@ -769,8 +789,15 @@
 
 	                if (this.x - this.radius >= _leftX && this.x - this.radius <= _rightX && this.y >= _topY && this.y <= _bottomY) {
 	                    this.vx = -this.vx;
+	                    this.ping.play();
 	                }
 	            }
+	        }
+	    }, {
+	        key: 'goal',
+	        value: function goal(player) {
+	            player.score++;
+	            this.reset();
 	        }
 	    }, {
 	        key: 'reset',
@@ -791,6 +818,52 @@
 	}();
 
 	exports.default = Ball;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _settings = __webpack_require__(10);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Score = function () {
+	  function Score(x, y, size) {
+	    _classCallCheck(this, Score);
+
+	    this.x = x;
+	    this.y = y;
+	    this.size = size;
+	  }
+
+	  _createClass(Score, [{
+	    key: 'render',
+	    value: function render(svg, score) {
+	      //    <text x="320" y="30" fill="white" font-size="40" kerning="10"> 0 </text>
+	      var newText = document.createElementNS(_settings.SVG_NS, 'text');
+	      newText.setAttributeNS(null, 'x', this.x);
+	      newText.setAttributeNS(null, 'y', this.y);
+	      newText.setAttributeNS(null, 'font-size', this.size);
+	      newText.setAttributeNS(null, 'font-family', 'Arial');
+	      newText.setAttributeNS(null, 'fill', '#fff');
+	      // nextText.setAttributeNS(null,'score',score);
+	      newText.innerHTML = score;
+	      svg.appendChild(newText);
+	    }
+	  }]);
+
+	  return Score;
+	}();
+
+	exports.default = Score;
 
 /***/ }
 /******/ ]);

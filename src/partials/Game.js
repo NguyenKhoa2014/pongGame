@@ -42,7 +42,7 @@ export default class Game {
             KEYS.down
         )
 
-         
+
 
         this.ball = new Ball(
             this.radius = 8,
@@ -51,8 +51,8 @@ export default class Game {
 
         )
 
-        this.score1 = new Score(this.width/2-50,30,30);
-        this.score2 = new Score(this.width/2 + 25, 30,30);
+        this.score1 = new Score(this.width / 2 - 50, 30, 30);
+        this.score2 = new Score(this.width / 2 + 25, 30, 30);
 
         document.addEventListener('keydown', event => {
             switch (event.keyCode) {
@@ -85,9 +85,9 @@ export default class Game {
         this.player2.render(svg);
 
         this.ball.render(svg, this.player1, this.player2);
-        this.score1.render(svg);
-        this.score2.render(svg);
-        
+        this.score1.render(svg, this.player1.score);
+        this.score2.render(svg, this.player2.score);
+
     }
 
 
