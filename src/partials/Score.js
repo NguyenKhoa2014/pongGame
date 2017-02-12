@@ -9,7 +9,6 @@ export default class Score {
   }
   
   render(svg,score) {
-    //    <text x="320" y="30" fill="white" font-size="40" kerning="10"> 0 </text>
     var newText = document.createElementNS(SVG_NS,'text');
     newText.setAttributeNS(null,'x',this.x);     
     newText.setAttributeNS(null,'y',this.y); 

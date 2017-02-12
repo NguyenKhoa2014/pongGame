@@ -14,7 +14,7 @@ export default class Game {
 
         this.boardGap = 10;
         this.paddleWidth = 8;
-        this.paddleHeight = 56;
+        this.paddleHeight = 60;
 
         this.gameElement = document.getElementById(this.element);
 
@@ -50,9 +50,17 @@ export default class Game {
             this.boardHeight = height
 
         )
+            this.ball1 = new Ball(
+            this.radius = 8,
+            this.boardWidth = width,
+            this.boardHeight = height
+
+        )
+        
 
         this.score1 = new Score(this.width / 2 - 50, 30, 30);
         this.score2 = new Score(this.width / 2 + 25, 30, 30);
+        this.score3 = new Score(this.width / 2 - 80, 70, 30);
 
         document.addEventListener('keydown', event => {
             switch (event.keyCode) {
@@ -85,8 +93,18 @@ export default class Game {
         this.player2.render(svg);
 
         this.ball.render(svg, this.player1, this.player2);
+        this.ball1.render(svg, this.player1, this.player2);
         this.score1.render(svg, this.player1.score);
         this.score2.render(svg, this.player2.score);
+        let winner ='The winner is: ';
+        if (parseInt(this.player2.score)> parseInt(this.player2.score) ){
+            winner += 'Player2';
+        }
+        else{
+            winner += 'Player1';
+        }
+         
+        this.score3.render(svg, winner);
 
     }
 
