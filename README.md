@@ -28,10 +28,12 @@ Open index.html
 
 **Pause: - spacebar key **
 
-** License  **
+** Refresh to start new game **
+
+## License  
 NA
 
-** Contributing ** 
+## Contributing  
 This game does not check when the ball hit the top or bottom side part of the paddle
 
 

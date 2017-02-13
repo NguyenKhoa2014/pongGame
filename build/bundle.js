@@ -480,7 +480,7 @@
 
 	        this.boardGap = 10;
 	        this.paddleWidth = 8;
-	        this.paddleHeight = 56;
+	        this.paddleHeight = 80;
 
 	        this.gameElement = document.getElementById(this.element);
 
@@ -493,9 +493,11 @@
 	        this.player2 = new _Paddle2.default(this.height, this.paddleWidth, this.paddleHeight, this.width - this.boardGap - this.paddleWidth, (this.height - this.paddleHeight) / 2, _settings.KEYS.up, _settings.KEYS.down);
 
 	        this.ball = new _Ball2.default(this.radius = 8, this.boardWidth = width, this.boardHeight = height);
+	        this.ball1 = new _Ball2.default(this.radius = 8, this.boardWidth = width, this.boardHeight = height);
 
 	        this.score1 = new _Score2.default(this.width / 2 - 50, 30, 30);
 	        this.score2 = new _Score2.default(this.width / 2 + 25, 30, 30);
+	        this.score3 = new _Score2.default(this.width / 2 - 80, 70, 30);
 
 	        document.addEventListener('keydown', function (event) {
 	            switch (event.keyCode) {
@@ -531,6 +533,14 @@
 	            this.ball1.render(svg, this.player1, this.player2);
 	            this.score1.render(svg, this.player1.score);
 	            this.score2.render(svg, this.player2.score);
+	            var winner = 'The winner is: ';
+	            if (parseInt(this.player2.score) > parseInt(this.player2.score)) {
+	                winner += 'Player2';
+	            } else {
+	                winner += 'Player1';
+	            }
+
+	            this.score3.render(svg, winner);
 	        }
 	    }]);
 
@@ -636,7 +646,7 @@
 	        this.height = height;
 	        this.x = x;
 	        this.y = y;
-	        this.speed = 10;
+	        this.speed = 70;
 	        this.score = 0;
 
 	        document.addEventListener('keydown', function (event) {
@@ -657,8 +667,6 @@
 
 	            //this.y =  this.y - this.speed;
 	            this.y = Math.max(0, this.y - this.speed);
-
-	            //console.log('up');
 	        }
 	    }, {
 	        key: 'down',
@@ -848,7 +856,6 @@
 	  _createClass(Score, [{
 	    key: 'render',
 	    value: function render(svg, score) {
-	      //    <text x="320" y="30" fill="white" font-size="40" kerning="10"> 0 </text>
 	      var newText = document.createElementNS(_settings.SVG_NS, 'text');
 	      newText.setAttributeNS(null, 'x', this.x);
 	      newText.setAttributeNS(null, 'y', this.y);
