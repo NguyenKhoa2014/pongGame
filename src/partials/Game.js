@@ -68,10 +68,10 @@ export default class Game {
         )
 
 
-        this.score1 = new Score(this.width / 2 - 50, 30, 30);
-        this.score2 = new Score(this.width / 2 + 25, 30, 30);
-        this.score3 = new Score(this.width / 2 - 130, 70, 30);
-        this.score4 = new Score(this.width / 2 - 130, 120, 30);
+        this.score1 = new Score(this.width / 2 - 50, 30, 30,'white');
+        this.score2 = new Score(this.width / 2 + 25, 30, 30,'white');
+        this.score3 = new Score(this.width / 2 - 130, 70, 40,'yellow');
+        this.score4 = new Score(this.width / 2 - 160, 120, 40,'yellow');
 
         document.addEventListener('keydown', event => {
             switch (event.keyCode) {

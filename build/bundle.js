@@ -499,10 +499,10 @@
 	        this.ball1 = new _Ball2.default(this.radius = 8, this.boardWidth = width, this.boardHeight = height);
 	        this.ball2 = new _Ball2.default(this.radius = 4, this.boardWidth = width, this.boardHeight = height);
 
-	        this.score1 = new _Score2.default(this.width / 2 - 50, 30, 30);
-	        this.score2 = new _Score2.default(this.width / 2 + 25, 30, 30);
-	        this.score3 = new _Score2.default(this.width / 2 - 130, 70, 30);
-	        this.score4 = new _Score2.default(this.width / 2 - 130, 120, 30);
+	        this.score1 = new _Score2.default(this.width / 2 - 50, 30, 30, 'white');
+	        this.score2 = new _Score2.default(this.width / 2 + 25, 30, 30, 'white');
+	        this.score3 = new _Score2.default(this.width / 2 - 130, 70, 30, 'white');
+	        this.score4 = new _Score2.default(this.width / 2 - 130, 120, 30, 'white');
 
 	        document.addEventListener('keydown', function (event) {
 	            switch (event.keyCode) {
