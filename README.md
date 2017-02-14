@@ -30,6 +30,14 @@ Open index.html
 
 ** Refresh to start new game **
 
+## How to Play
+Player1 (left) moves up and down using the "a" and "z" key. 
+Player2 (right) moves up and down using the up and down arrow keys
+Press Spacebar to PAUSE the game
+The player who gets to 3 points first is the winner
+To start a new game click the refresh on the browser
+To add a new ball, press the "n" key. To remove that extra ball, press the "n" key again
+
 ## License  
 NA
 

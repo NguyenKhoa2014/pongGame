@@ -97,7 +97,7 @@
 
 
 	// module
-	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\n/**\n * FONTS\n */\n\n@font-face {\n  font-family: 'Silkscreen Web';\n  src: url(" + __webpack_require__(4) + ");\n  src: url(" + __webpack_require__(4) + "?#iefix) format('embedded-opentype'),\n    url(" + __webpack_require__(5) + ") format('woff'),\n    url(" + __webpack_require__(6) + ") format('truetype'),\n    url(" + __webpack_require__(7) + "#silkscreennormal) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n\n/**\n * GAME\n */\n\nhtml {\n  font-size: 16px;\n}\n\nbody {\n  align-items: center;\n  display: flex;\n  font-family: 'Silkscreen Web', monotype;\n  height: 100vh;\n  justify-content: center;\n  width: 100%;\n}\n\nh1 {\n  font-size: 2.5rem;\n  margin-bottom: 1rem; \n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\n/**\n * FONTS\n */\n\n@font-face {\n  font-family: 'Silkscreen Web';\n  src: url(" + __webpack_require__(4) + ");\n  src: url(" + __webpack_require__(4) + "?#iefix) format('embedded-opentype'),\n    url(" + __webpack_require__(5) + ") format('woff'),\n    url(" + __webpack_require__(6) + ") format('truetype'),\n    url(" + __webpack_require__(7) + "#silkscreennormal) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n\n/**\n * GAME\n */\n\nhtml {\n  font-size: 16px;\n}\n\nbody {\n  align-items: center;\n  display: flex;\n  font-family: 'Silkscreen Web', monotype;\n  height: 100vh;\n  justify-content: center;\n  width: 100%;\n}\n\nh1 {\n  font-size: 2.5rem;\n  margin-bottom: 1rem; \n  text-align: center;\n}\n.players {\n   display: inline-flex;\n   justify-content: space-between;\n   text-align: center;\n   width: 500px;\n}\n\n.players h2{\n    padding: 5px 0;\n    font-weight: bold;\n}\n\n.players li{\n    padding: 5px 0;\n}\n", ""]);
 
 	// exports
 
@@ -480,13 +480,16 @@
 
 	        this.boardGap = 10;
 	        this.paddleWidth = 8;
-	        this.paddleHeight = 80;
+	        this.paddleHeight = 100;
 
 	        this.gameElement = document.getElementById(this.element);
 
 	        this.pause = false;
+	        this.newBall = false;
 
 	        this.board = new _Board2.default(this.width, this.height);
+
+	        this.ping = new Audio('public/sounds/pong-04.wav');
 
 	        this.player1 = new _Paddle2.default(this.height, this.paddleWidth, this.paddleHeight, this.boardGap, (this.height - this.paddleHeight) / 2, _settings.KEYS.a, _settings.KEYS.z);
 
@@ -497,12 +500,16 @@
 
 	        this.score1 = new _Score2.default(this.width / 2 - 50, 30, 30);
 	        this.score2 = new _Score2.default(this.width / 2 + 25, 30, 30);
-	        this.score3 = new _Score2.default(this.width / 2 - 80, 70, 30);
+	        this.score3 = new _Score2.default(this.width / 2 - 130, 70, 30);
+	        this.score4 = new _Score2.default(this.width / 2 - 130, 120, 30);
 
 	        document.addEventListener('keydown', function (event) {
 	            switch (event.keyCode) {
 	                case _settings.KEYS.spaceBar:
 	                    _this.pause = !_this.pause;
+	                    break;
+	                case _settings.KEYS.n:
+	                    _this.newBall = !_this.newBall;
 	                    break;
 
 	            }
@@ -533,14 +540,23 @@
 	            this.ball1.render(svg, this.player1, this.player2);
 	            this.score1.render(svg, this.player1.score);
 	            this.score2.render(svg, this.player2.score);
-	            var winner = 'The winner is: ';
-	            if (parseInt(this.player2.score) > parseInt(this.player2.score)) {
-	                winner += 'Player2';
+	            var winner = 'Winner: ';
+	            var playAgain = 'Refresh to play again';
+	            var score1 = parseInt(this.player1.score);
+	            var score2 = parseInt(this.player2.score);
+
+	            if (score2 > score1) {
+	                winner += 'Player2 ';
 	            } else {
-	                winner += 'Player1';
+	                winner += 'Player1 ';
 	            }
 
-	            this.score3.render(svg, winner);
+	            if (score1 === 3 || score2 === 3) {
+	                this.ping.play();
+	                this.score3.render(svg, winner);
+	                this.score4.render(svg, playAgain);
+	                this.pause = true;
+	            }
 	        }
 	    }]);
 
@@ -565,7 +581,9 @@
 	  z: 90, // player 1 down key
 	  up: 38, // player 2 up key
 	  down: 40, // player 2 down key
-	  spaceBar: 32 };
+	  spaceBar: 32, // we'll use this later...
+	  n: 78
+	};
 
 /***/ },
 /* 11 */

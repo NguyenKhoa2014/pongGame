@@ -1,6 +1,7 @@
 import { SVG_NS, KEYS } from '../settings';
 
 import Board from './Board';
+
 import Paddle from './Paddle';
 import Ball from './Ball';
 import Score from './Score';
@@ -19,8 +20,10 @@ export default class Game {
         this.gameElement = document.getElementById(this.element);
 
         this.pause = false;
+        this.newBall = false;
 
         this.board = new Board(this.width, this.height);
+       
 
         this.ping = new Audio('public/sounds/pong-04.wav');
 
@@ -58,6 +61,11 @@ export default class Game {
             this.boardHeight = height
 
         )
+        this.ball2 = new Ball(
+            this.radius = 4,
+            this.boardWidth = width,
+            this.boardHeight = height
+        )
 
 
         this.score1 = new Score(this.width / 2 - 50, 30, 30);
@@ -70,7 +78,9 @@ export default class Game {
                 case KEYS.spaceBar:
                     this.pause = !this.pause;
                     break;
-
+                case KEYS.n:
+                    this.newBall = !this.newBall;
+                    break;
 
             }
         });
@@ -82,6 +92,7 @@ export default class Game {
         if (this.pause) {
             return;
         }
+
         this.gameElement.innerHTML = '';
 
         let svg = document.createElementNS(SVG_NS, 'svg');
@@ -99,27 +110,31 @@ export default class Game {
         this.ball1.render(svg, this.player1, this.player2);
         this.score1.render(svg, this.player1.score);
         this.score2.render(svg, this.player2.score);
+        if (this.newBall) {
+            this.ball2.render(svg, this.player1, this.player2);
+        }
         let winner = 'Winner: ';
         let playAgain = 'Refresh to play again';
         let score1 = parseInt(this.player1.score);
         let score2 = parseInt(this.player2.score);
 
-            if (score2 > score1) {
-                winner += 'Player2 ';
-            }
-            else {
-                winner += 'Player1 ';
-            }
+        if (score2 > score1) {
+            winner += 'Player2 ';
+        }
+        else {
+            winner += 'Player1 ';
+        }
 
-            if ( score1 ===3 || score2 === 3) {
-                this.ping.play();
-                this.score3.render(svg, winner);
-                this.score4.render(svg, playAgain);
-                this.pause = true;
- 
-            }
+        if (score1 === 3 || score2 === 3) {
+            this.ping.play();
+            this.score3.render(svg, winner);
+            this.score4.render(svg, playAgain);
+            
+            this.pause = true;
 
-         
+        }
+
+
 
     }
 

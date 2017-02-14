@@ -1,0 +1,16 @@
+export default class Board {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    render(svg) {
+        let rect = document.createElementNS(SVG_NS, 'rect');
+        // rect.setAttribute(null,'x',0);
+        // rect.setAttribute(null,'y',0);
+        rect.setAttributeNS(null, 'width', this.width);
+        rect.setAttributeNS(null, 'height', this.height);
+        rect.setAttributeNS(null, 'fill', '#353535');
+
+    }
+}
