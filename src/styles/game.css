@@ -89,6 +89,7 @@ h1 {
    justify-content: space-between;
    text-align: center;
    width: 500px;
+   border: 5px solid green;
 }
 
 .players h2{

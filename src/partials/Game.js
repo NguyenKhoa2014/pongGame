@@ -127,6 +127,7 @@ export default class Game {
 
         if (score1 === 3 || score2 === 3) {
             this.ping.play();
+            this.board.render(svg);
             this.score3.render(svg, winner);
             this.score4.render(svg, playAgain);
             
